@@ -128,15 +128,16 @@
             
           </ul>
         </li>
-        <li><a class="app-menu__item" href="admin-config.jsp"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Configuracion</span></a></li>
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Afiliados</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+        
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Cursos</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="form-components.html"><i class="icon fa fa-circle-o"></i> Form Components</a></li>
-            <li><a class="treeview-item" href="form-custom.html"><i class="icon fa fa-circle-o"></i> Custom Components</a></li>
-            <li><a class="treeview-item" href="form-samples.html"><i class="icon fa fa-circle-o"></i> Form Samples</a></li>
-            <li><a class="treeview-item" href="form-notifications.html"><i class="icon fa fa-circle-o"></i> Form Notifications</a></li>
+            <li><a class="treeview-item" href="form-components.html"><i class="icon fa fa-circle-o"></i> Futuros</a></li>
+            <li><a class="treeview-item" href="form-custom.html"><i class="icon fa fa-circle-o"></i> Actuales</a></li>
+            <li><a class="treeview-item" href="form-samples.html"><i class="icon fa fa-circle-o"></i> Anteriores</a></li>
+            <li><a class="treeview-item" href="form-notifications.html"><i class="icon fa fa-circle-o"></i> Nuevo</a></li>
           </ul>
         </li>
+        <li><a class="app-menu__item" href="admin-config.jsp"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label"> Categorias de cursos</span></a></li>
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Tables</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="table-basic.html"><i class="icon fa fa-circle-o"></i> Basic Tables</a></li>

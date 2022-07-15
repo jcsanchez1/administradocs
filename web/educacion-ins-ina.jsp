@@ -150,7 +150,9 @@
                     <li class="breadcrumb-item active"><a href="#">Inserts</a></li>
                 </ul>
             </div>
+            <a href="educacion-ins-new.jsp" class="btn btn-primary btn-lg">Nuevo</a><br><br>
             <div class="row">
+
                 <div class="col-md-12">
                     <div class="tile">
                         <div class="tile-body">
@@ -174,9 +176,9 @@
                                         try {
                                             sql = "SELECT tbl_instructores.instid as 'No', CONCAT(tbl_instructores.nombre, ' ', tbl_instructores.apellido) as instructor, tbl_instructores.correo, tbl_instructores.genero, tbl_instructores.telefono, tbl_instructores.fechanacimiento, tbl_instructores.identidad FROM tbl_instructores WHERE tbl_instructores.estado = 0";
                                             rs = cn.ejecutarConsultaprograma(sql);
-                                            String a1 = "", a2 = "", a3 = "", a4 = "", a5 = "", a6 = "", a7 = "";
+                                            String a1 = "", a2 = "", a3 = "", a4 = "", a5 = "", a6 = "", a7 = "", a8 = "";
                                     %>
-                                    <tbody>
+                                    <tbody class="text-center">
                                         <%
                                             while (rs.next()) {
                                                 a1 = rs.getString(1);
@@ -186,18 +188,24 @@
                                                 a5 = rs.getString(5);
                                                 a6 = rs.getString(6);
                                                 a7 = rs.getString(7);
+
                                         %><tr>
                                             <td><%=a1%> </td>
                                             <td><%=a2%></td> 
                                             <td><%=a3%></td> 
-                                            <td><%=a4%></td> 
+                                            <td><% if (a4.equals("f")) {%>
+                                                <i class="fa fa-female" aria-hidden="true"></i>
+                                                <%} else {
+                                                %>
+                                                <i class="fa fa-male" aria-hidden="true"></i>
+                                                <%}%></td>
                                             <td><%=a5%></td>
                                             <td><%=a6%></td>
                                             <td><%=a7%></td>
                                             <td><a href="educacion-cur-list.jsp?instid=<%=a1%>">Ver</a> </td>
-                                            <td><a href="educacion-ins-mod.jsp?instid=<%=a1%>" class="btn btn-primary">Modificar</a>
-                                            <a href="educacion-ins-cam.jsp?instid=<%=a1%>" class="btn btn-secondary">Cambiar Estado</a> </td>                                            
-                                           
+                                            <td><a href="educacion-ins-mod.jsp?instid=<%=a1%>" class="btn btn-primary">Modificar</a> <br><br>
+                                                <a href="educacion-ins-cam.jsp?instid=<%=a1%>" class="btn btn-secondary">Cambiar Estado</a> </td>                                            
+
                                         </tr>
                                         <% } %>
                                     </tbody>

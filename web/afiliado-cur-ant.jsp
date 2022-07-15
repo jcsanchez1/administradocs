@@ -198,6 +198,7 @@
                                             <td><%=a6%></td>
                                             <td><%=a7%></td>
                                             <td><%=a8%></td> 
+                                            <td><a href="afiliado-tur-feed.jsp?turid=<%=a1%>"</td> 
                                         </tr>
                                         <% } %>
                                     </tbody>

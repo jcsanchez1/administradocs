@@ -97,7 +97,7 @@
         <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
             <ul class="dropdown-menu settings-menu dropdown-menu-right">
 
-                <li><a class="dropdown-item" href="page-user.html"><i class="fa fa-user fa-lg"></i> perfil</a></li>
+                <li><a class="dropdown-item" href="admin-perfil.jsp?idper=<%=b%>"><i class="fa fa-user fa-lg"></i> perfil</a></li>
                 <form action="loginControlador" method="POST">
                     <li><button name="btn-out" id="btn-out" class="dropdown-item" /><i class="fa fa-sign-out fa-lg"></i> Salir</li>
 
@@ -138,43 +138,30 @@
                 <li><a class="treeview-item" href="admin-user-edu-index.jsp"><i class="icon fa fa-circle-o"></i> Educacion</a></li>                           
             </ul>
         </li>
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Filiales</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                <li><a class="app-menu__item" href="admin-fil-index.jsp"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Filiales</span></a></li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label"> Servicios</span><i class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
-                <li><a class="treeview-item" href="table-basic.html"><i class="icon fa fa-circle-o"></i> Basic Tables</a></li>
-                <li><a class="treeview-item" href="table-data-table.html"><i class="icon fa fa-circle-o"></i> Data Tables</a></li>
+                <li><a class="treeview-item" href="admin-ser-servicio.jsp"><i class="icon fa fa-circle-o"></i> Servicios</a></li>
+                <li><a class="treeview-item" href="admin-ser-subservicio.jsp"><i class="icon fa fa-circle-o"></i> Sub Servicios</a></li>
             </ul>
         </li>
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-file-text"></i><span class="app-menu__label">Empleados</span><i class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
-                <li><a class="treeview-item" href="blank-page.html"><i class="icon fa fa-circle-o"></i> Blank Page</a></li>
-                <li><a class="treeview-item" href="page-login.html"><i class="icon fa fa-circle-o"></i> Login Page</a></li>
-                <li><a class="treeview-item" href="page-lockscreen.html"><i class="icon fa fa-circle-o"></i> Lockscreen Page</a></li>
-                <li><a class="treeview-item" href="page-user.html"><i class="icon fa fa-circle-o"></i> User Page</a></li>
-                <li><a class="treeview-item" href="page-invoice.html"><i class="icon fa fa-circle-o"></i> Invoice Page</a></li>
-                <li><a class="treeview-item" href="page-calendar.html"><i class="icon fa fa-circle-o"></i> Calendar Page</a></li>
-                <li><a class="treeview-item" href="page-mailbox.html"><i class="icon fa fa-circle-o"></i> Mailbox</a></li>
-                <li><a class="treeview-item" href="page-error.html"><i class="icon fa fa-circle-o"></i> Error Page</a></li>
+                <li><a class="treeview-item" href="admin-emp-new-caj.jsp"><i class="icon fa fa-circle-o"></i> Caja</a></li>
+                <li><a class="treeview-item" href="admin-emp-new-csa.jsp"><i class="icon fa fa-circle-o"></i> Servicio al cliente</a></li>
+                <li><a class="treeview-item" href="admin-emp-new-pan.jsp"><i class="icon fa fa-circle-o"></i> Pantalla</a></li>
+                <li><a class="treeview-item" href="admin-emp-puesto.jsp"><i class="icon fa fa-circle-o"></i> Puestos</a></li>
+
             </ul>
         </li>
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-file-text"></i><span class="app-menu__label">Cursos</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-            <ul class="treeview-menu">
-                <li><a class="treeview-item" href="blank-page.html"><i class="icon fa fa-circle-o"></i> Blank Page</a></li>
-                <li><a class="treeview-item" href="page-login.html"><i class="icon fa fa-circle-o"></i> Login Page</a></li>
-                <li><a class="treeview-item" href="page-lockscreen.html"><i class="icon fa fa-circle-o"></i> Lockscreen Page</a></li>
-                <li><a class="treeview-item" href="page-user.html"><i class="icon fa fa-circle-o"></i> User Page</a></li>
-                <li><a class="treeview-item" href="page-invoice.html"><i class="icon fa fa-circle-o"></i> Invoice Page</a></li>
-                <li><a class="treeview-item" href="page-calendar.html"><i class="icon fa fa-circle-o"></i> Calendar Page</a></li>
-                <li><a class="treeview-item" href="page-mailbox.html"><i class="icon fa fa-circle-o"></i> Mailbox</a></li>
-                <li><a class="treeview-item" href="page-error.html"><i class="icon fa fa-circle-o"></i> Error Page</a></li>
-            </ul>
-        </li>
-        <li><a class="app-menu__item" href="docs.html"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label">Docs</span></a></li>
+        <li><a class="app-menu__item" href="admin-alertas.jsp?idper=<%=b%>"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label"> Alertas</span></a></li>
+        <li><a class="app-menu__item" href="admin-backup.jsp"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Respaldo y restauracion</span></a></li>
     </ul>
 </aside>
 <main class="app-content">
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-dashboard"></i> Dashboard</h1>
+            <h1><i class="fa fa-dashboard"></i> COOPERATIVA</h1>
             <p>Sistema de gestion de afiliados</p>
         </div>
         <ul class="app-breadcrumb breadcrumb">

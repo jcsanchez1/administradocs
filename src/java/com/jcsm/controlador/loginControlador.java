@@ -70,13 +70,13 @@ public class loginControlador extends HttpServlet {
                     if (respuesta != 0) {
                         tp = lg.Traerdatos(tp);
                         misession.setAttribute("persona", tp);
-                        request.setAttribute("ida", tp.getId());
-                        request.getSession().setAttribute("ids", tp.getId());
+                        misession.setAttribute("ida", tp.getId());
+                        misession.setAttribute("usuario", usuario);
                         //request.getSession().setAttribute("persona", tp);
-                        request.getSession().setAttribute("filial", tp.getIdFilial().getIdfilial());
-                        request.getSession().setAttribute("rol", tp.getIdrol().getIdrol());
-                        request.getSession().setAttribute("nombrerol", tp.getIdrol().getNombrerol());
-                        request.getSession().setAttribute("nombrefilial", tp.getIdFilial().getNombrefilial());
+                        misession.setAttribute("filial", tp.getIdFilial().getIdfilial());
+                        misession.setAttribute("rol", tp.getIdrol().getIdrol());
+                        misession.setAttribute("nombrerol", tp.getIdrol().getNombrerol());
+                        misession.setAttribute("nombrefilial", tp.getIdFilial().getNombrefilial());
                         if (tp.getIdrol().getIdrol() == 1) {
                             response.sendRedirect("/administradocs/admin-index.jsp");
                         } else if (tp.getIdrol().getIdrol() == 2) {

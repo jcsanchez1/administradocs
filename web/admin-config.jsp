@@ -1,6 +1,9 @@
-
+<%@page import="com.jcsm.entidades.TblConfiguracion"%>
 <%@page import="com.jcsm.entidades.TblPersonas"%>
-
+<%@page import="com.jcsm.DAO.alertasDAO"%>
+<%@page import="com.jcsm.configuracion.Dba"%>
+<%@page import="com.jcsm.entidades.seguridad.TblBitacora"%>
+<%@page import="java.sql.ResultSet"%>
 <%
     if (request.getSession(false) == null) {
         response.sendRedirect("index.jsp");
@@ -9,21 +12,21 @@
 <%
     TblPersonas pers = new TblPersonas();
     pers = (TblPersonas) session.getAttribute("persona");
-    int a;
+    int a, b;
     a = pers.getIdrol().getIdrol();
+    b = pers.getId();
     if (a != 1) {
         response.sendRedirect("prohibido.jsp");
     }
-%>
-<%@page import="com.jcsm.configuracion.Dba"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="com.jcsm.entidades.TblConfiguracion"%>
-<%
+    alertasDAO adao = new alertasDAO();
+    TblBitacora tmp = new TblBitacora();
     int respuesta = 0;
     String sql = "";
     ResultSet rs = null;
     Dba cn = new Dba();
 %>
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -36,7 +39,6 @@
         <meta property="og:type" content="website">
         <meta property="og:site_name" content="Vali Admin">
         <meta property="og:title" content="Vali - Free Bootstrap 4 admin theme">
-        <script src="js/uploadfile.js" type="text/javascript"></script>
         <meta property="og:url" content="http://pratikborsadiya.in/blog/vali-admin">
         <meta property="og:image" content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png">
         <meta property="og:description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
@@ -59,211 +61,196 @@
                 <!--Notification Menu-->
                 <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"><i class="fa fa-bell-o fa-lg"></i></a>
                     <ul class="app-notification dropdown-menu dropdown-menu-right">
-                        <li class="app-notification__title">You have 4 new notifications.</li>
-                        <div class="app-notification__content">
-                            <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
-                                    <div>
-                                        <p class="app-notification__message">Lisa sent you a mail</p>
-                                        <p class="app-notification__meta">2 min ago</p>
-                                    </div></a></li>
-                            <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-danger"></i><i class="fa fa-hdd-o fa-stack-1x fa-inverse"></i></span></span>
-                                    <div>
-                                        <p class="app-notification__message">Mail server not working</p>
-                                        <p class="app-notification__meta">5 min ago</p>
-                                    </div></a></li>
-                            <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-success"></i><i class="fa fa-money fa-stack-1x fa-inverse"></i></span></span>
-                                    <div>
-                                        <p class="app-notification__message">Transaction complete</p>
-                                        <p class="app-notification__meta">2 days ago</p>
-                                    </div></a></li>
-                            <div class="app-notification__content">
-                                <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
-                                        <div>
-                                            <p class="app-notification__message">Lisa sent you a mail</p>
-                                            <p class="app-notification__meta">2 min ago</p>
-                                        </div></a></li>
-                                <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-danger"></i><i class="fa fa-hdd-o fa-stack-1x fa-inverse"></i></span></span>
-                                        <div>
-                                            <p class="app-notification__message">Mail server not working</p>
-                                            <p class="app-notification__meta">5 min ago</p>
-                                        </div></a></li>
-                                <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-success"></i><i class="fa fa-money fa-stack-1x fa-inverse"></i></span></span>
-                                        <div>
-                                            <p class="app-notification__message">Transaction complete</p>
-                                            <p class="app-notification__meta">2 days ago</p>
-                                        </div></a></li>
-                            </div>
-                        </div>
-                        <li class="app-notification__footer"><a href="#">See all notifications.</a></li>
-                    </ul>
-                </li>
-                <!-- User Menu-->
-                <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
-                    <ul class="dropdown-menu settings-menu dropdown-menu-right">
-                        <li><a class="dropdown-item" href="page-user.html"><i class="fa fa-cog fa-lg"></i> Settings</a></li>
-                        <li><a class="dropdown-item" href="page-user.html"><i class="fa fa-user fa-lg"></i> Profile</a></li>
-                        <form action="loginControlador" method="POST">
-                        <li><button name="btn-out" id="btn-out" class="dropdown-item" /><i class="fa fa-sign-out fa-lg"></i> Logout</li>
-
-                        </form>
-                    </ul>
-                </li>
-            </ul>
-        </header>
-        <!-- Sidebar menu-->
-        <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-        <aside class="app-sidebar">
-
-            <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="fotos/${persona.foto}" height="75px" width="75px" alt="User Image">
-                <div>
-                    <p class="app-sidebar__user-name">${persona.nombre}</p>
-                    <p class="app-sidebar__user-designation">${persona.idrol.nombrerol}</p>
-                    <p class="app-sidebar__user-designation">${persona.idFilial.nombrefilial}</p>
-                </div>
-            </div>
-            <ul class="app-menu">
-                <li><a class="app-menu__item" href="admin-index.jsp"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
-                <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Bitacoras</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-                    <ul class="treeview-menu">
-                        <li><a class="treeview-item" href="admin-bit-new.jsp"><i class="icon fa fa-circle-o"></i> Registros nuevos</a></li>
-                        <li><a class="treeview-item" href="admin-bit-upd.jsp"><i class="icon fa fa-circle-o"></i> Registros modificados</a></li>
-                        <li><a class="treeview-item" href="admin-bit-del.jsp"><i class="icon fa fa-circle-o"></i> Registros eliminados</a></li>
-
-                    </ul>
-                </li>
-                <li><a class="app-menu__item active" href="admin-config.jsp"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Configuracion</span></a></li>
-                <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Usuarios</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-                    <ul class="treeview-menu">
-                        <li><a class="treeview-item" href="admin-user-adm-index.jsp"><i class="icon fa fa-circle-o"></i> Administradores</a></li>
-                        <li><a class="treeview-item" href="admin-user-afi-index.jsp"><i class="icon fa fa-circle-o"></i> Afiliados</a></li>
-                        <li><a class="treeview-item" href="admin-user-sac-index.jsp"><i class="icon fa fa-circle-o"></i> Servicio al Afiliado</a></li>
-                        <li><a class="treeview-item" href="admin-user-caj-index.jsp"><i class="icon fa fa-circle-o"></i> Caja</a></li>
-                        <li><a class="treeview-item" href="admin-user-pan-index.jsp"><i class="icon fa fa-circle-o"></i> Pantalla</a></li>    
-                        <li><a class="treeview-item" href="admin-user-edu-index.jsp"><i class="icon fa fa-circle-o"></i> Educacion</a></li>                           
-                    </ul>
-                </li>
-                <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Tables</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-                    <ul class="treeview-menu">
-                        <li><a class="treeview-item" href="table-basic.html"><i class="icon fa fa-circle-o"></i> Basic Tables</a></li>
-                        <li><a class="treeview-item" href="table-data-table.html"><i class="icon fa fa-circle-o"></i> Data Tables</a></li>
-                    </ul>
-                </li>
-                <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-file-text"></i><span class="app-menu__label">Pages</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-                    <ul class="treeview-menu">
-                        <li><a class="treeview-item" href="blank-page.html"><i class="icon fa fa-circle-o"></i> Blank Page</a></li>
-                        <li><a class="treeview-item" href="page-login.html"><i class="icon fa fa-circle-o"></i> Login Page</a></li>
-                        <li><a class="treeview-item" href="page-lockscreen.html"><i class="icon fa fa-circle-o"></i> Lockscreen Page</a></li>
-                        <li><a class="treeview-item" href="page-user.html"><i class="icon fa fa-circle-o"></i> User Page</a></li>
-                        <li><a class="treeview-item" href="page-invoice.html"><i class="icon fa fa-circle-o"></i> Invoice Page</a></li>
-                        <li><a class="treeview-item" href="page-calendar.html"><i class="icon fa fa-circle-o"></i> Calendar Page</a></li>
-                        <li><a class="treeview-item" href="page-mailbox.html"><i class="icon fa fa-circle-o"></i> Mailbox</a></li>
-                        <li><a class="treeview-item" href="page-error.html"><i class="icon fa fa-circle-o"></i> Error Page</a></li>
-                    </ul>
-                </li>
-                <li><a class="app-menu__item" href="docs.html"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label">Docs</span></a></li>
-            </ul>
-        </aside>
-        <main class="app-content">
-            <div class="app-title">
-                <div>
-                    <h1><i class="fa fa-dashboard"></i> Dashboard</h1>
-                    <p>Sistema de gestion de afiliados</p>
-                </div>
-                <ul class="app-breadcrumb breadcrumb">
-                    <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                </ul>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="container"><%
-                        try {
-                            sql = "SELECT tbl_configuracion.logo, tbl_configuracion.logopeque, tbl_configuracion.nombre FROM tbl_configuracion";
+                        <li class="app-notification__title"><%
+                            int cantidad = adao.existealerta(b);
+                            if (cantidad > 0) {
+                            %>
+                            <p> tiene <%=cantidad%> alertas</p><%
+                            } else {
+                            %>
+                            <p>no tiene alertas</p><%
+                                }%>
+                        </li></li>
+                <div class="app-notification__content">
+                    <%                                        try {
+                            sql = "SELECT tbl_alertas.Descripcion, tbl_alertas.diaalerta, tbl_alertas.estado FROM tbl_alertas WHERE tbl_alertas.diaalerta = DAY(CURRENT_DATE) AND tbl_alertas.idpersona = " + b + " LIMIT 5";
                             rs = cn.ejecutarConsultaprograma(sql);
-                            TblConfiguracion tcon = new TblConfiguracion();
-                            String a1 = "", a2 = "", a3 = "";
+                            String a1 = "";
                             while (rs.next()) {
-                                tcon.setLogo(rs.getString(1));
                                 a1 = rs.getString(1);
-                                tcon.setLogopeque(rs.getString(2));
-                                a2 = rs.getString(2);
-                                tcon.setNombre(rs.getString(3));
-                                a3 = rs.getString(3);
-                            }
-                        %>
-                        <form name="configuracion" action="/administradocs/configuracionControlador" method="POST" enctype="MULTIPART/FORM-DATA">
-                            <div class="form-group row">
-                                <label for="logogrande" class="col-2 col-form-label">Logo Grande</label> 
-                                <div class="col-8 text-center">
-                                    <img src="images/<%=a1%>" alt="<%=a3%>"/>
-
-                                </div>
-                                <div class="col-2 ">
-
-                                    <button name="btn-config1" type="btn-config1" class="btn btn-primary">modificar logo grande</button>                                    
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="logopeque" class="col-2 col-form-label">Logo Pequeño</label> 
-                                <div class="col-8 text-center ">
-                                    <img src="images/<%=a2%>" alt="<%=a3%>"  height="50px" width="150px" />
-
-                                </div>
-                                <div class="col-2 ">
-
-                                    <button name="btn-config2" type="btn-config2" class="btn btn-primary">modificar logo pequeño</button>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="nombre" class="col-2 col-form-label">Nombre</label> 
-
-                                <div class="col-8">
-                                    <input id="nombre" name="nombre" type="text" value="<%=a3%>" class="form-control" required="required">
-
-                                </div>
-                                <div class="col-2">
-
-                                    <button name="btn-config3" type="btn-config3"  class="btn btn-primary">modificar nombre</button>
-                                </div>
-                            </div> 
-
-                        </form>
-                    </div>
-                    <%
-                        } catch (Exception e) {
-                        } finally {
-                            cn.desconectar();
-                        }
                     %>
+                    <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
+                            <div>
+                                <p class="app-notification__message"><%=a1%></p>
+
+                            </div></a></li>
+                            <%
+                                }
+                            %>
                 </div>
-            </div>
+                <%
+                    } catch (Exception e) {
+                    }
+                %>
+            </ul>
+        </li>
+        <!-- User Menu-->
+        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
+            <ul class="dropdown-menu settings-menu dropdown-menu-right">
+
+                <li><a class="dropdown-item" href="admin-perfil.jsp?idper=<%=b%>"><i class="fa fa-user fa-lg"></i> perfil</a></li>
+                <form action="loginControlador" method="POST">
+                    <li><button name="btn-out" id="btn-out" class="dropdown-item" /><i class="fa fa-sign-out fa-lg"></i> Salir</li>
+
+                </form>
+            </ul>
+        </li>
+    </ul>
+</header>
+<!-- Sidebar menu-->
+<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+<aside class="app-sidebar">
+
+    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="fotos/${persona.foto}" height="75px" width="75px" alt="User Image">
+        <div>
+            <p class="app-sidebar__user-name">${persona.nombre}</p>
+            <p class="app-sidebar__user-designation">${persona.idrol.nombrerol}</p>
+            <p class="app-sidebar__user-designation">${persona.idFilial.nombrefilial}</p>
         </div>
-    </main>
-    <!-- Essential javascripts for application to work-->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
-    <!-- The javascript plugin to display page loading on top-->
-    <script src="js/plugins/pace.min.js"></script>
-    <!-- Page specific javascripts-->
-    <!-- Google analytics script-->
-    <script type="text/javascript">
-        if (document.location.hostname == 'pratikborsadiya.in') {
-            (function (i, s, o, g, r, a, m) {
-                i['GoogleAnalyticsObject'] = r;
-                i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
-                a = s.createElement(o),
-                        m = s.getElementsByTagName(o)[0];
-                a.async = 1;
-                a.src = g;
-                m.parentNode.insertBefore(a, m)
-            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-            ga('create', 'UA-72504830-1', 'auto');
-            ga('send', 'pageview');
-        }
-    </script>
+    </div>
+    <ul class="app-menu">
+        <li><a class="app-menu__item active" href="admin-index.jsp"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Bitacoras</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="admin-bit-new.jsp"><i class="icon fa fa-circle-o"></i> Registros nuevos</a></li>
+                <li><a class="treeview-item" href="admin-bit-upd.jsp"><i class="icon fa fa-circle-o"></i> Registros modificados</a></li>
+                <li><a class="treeview-item" href="admin-bit-del.jsp"><i class="icon fa fa-circle-o"></i> Registros eliminados</a></li>
+
+            </ul>
+        </li>
+        <li><a class="app-menu__item" href="admin-config.jsp"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Configuracion</span></a></li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Usuarios</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="admin-user-adm-index.jsp"><i class="icon fa fa-circle-o"></i> Administradores</a></li>
+                <li><a class="treeview-item" href="admin-user-afi-index.jsp"><i class="icon fa fa-circle-o"></i> Afiliados</a></li>
+                <li><a class="treeview-item" href="admin-user-sac-index.jsp"><i class="icon fa fa-circle-o"></i> Servicio al Afiliado</a></li>
+                <li><a class="treeview-item" href="admin-user-caj-index.jsp"><i class="icon fa fa-circle-o"></i> Caja</a></li>
+                <li><a class="treeview-item" href="admin-user-pan-index.jsp"><i class="icon fa fa-circle-o"></i> Pantalla</a></li>  
+                <li><a class="treeview-item" href="admin-user-edu-index.jsp"><i class="icon fa fa-circle-o"></i> Educacion</a></li>                           
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label"> Servicios</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="admin-ser-servicio.jsp"><i class="icon fa fa-circle-o"></i> Servicios</a></li>
+                <li><a class="treeview-item" href="admin-ser-subservicio.jsp"><i class="icon fa fa-circle-o"></i> Sub Servicios</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-file-text"></i><span class="app-menu__label">Empleados</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="admin-emp-new-caj.jsp"><i class="icon fa fa-circle-o"></i> Caja</a></li>
+                <li><a class="treeview-item" href="admin-emp-new-csa.jsp"><i class="icon fa fa-circle-o"></i> Servicio al cliente</a></li>
+                <li><a class="treeview-item" href="admin-emp-new-pan.jsp"><i class="icon fa fa-circle-o"></i> Pantalla</a></li>
+                <li><a class="treeview-item" href="admin-emp-puesto.jsp"><i class="icon fa fa-circle-o"></i> Puestos</a></li>
+
+            </ul>
+        </li>
+        <li><a class="app-menu__item" href="admin-alertas.jsp?idper=<%=b%>"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label"> Alertas</span></a></li>
+        <li><a class="app-menu__item" href="admin-backup.jsp"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Respaldo y restauracion</span></a></li>
+    </ul>
+</aside>
+<main class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-dashboard"></i> COOPERATIVA</h1>
+            <p>Sistema de gestion de afiliados</p>
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+            <li class="breadcrumb-item"><a href="#">Configuracion</a></li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="container"><%
+                try {
+                    sql = "SELECT tbl_configuracion.logo, tbl_configuracion.logopeque, tbl_configuracion.nombre FROM tbl_configuracion";
+                    rs = cn.ejecutarConsultaprograma(sql);
+                    TblConfiguracion tcon = new TblConfiguracion();
+                    String a1 = "", a2 = "", a3 = "";
+                    while (rs.next()) {
+                        tcon.setLogo(rs.getString(1));
+                        a1 = rs.getString(1);
+                        tcon.setLogopeque(rs.getString(2));
+                        a2 = rs.getString(2);
+                        tcon.setNombre(rs.getString(3));
+                        a3 = rs.getString(3);
+                    }
+                %>
+                <form name="configuracion" action="/administradocs/configuracionControlador" method="POST" enctype="MULTIPART/FORM-DATA">
+                    <div class="form-group row">
+                        <label for="logogrande" class="col-2 col-form-label">Logo Grande</label> 
+                        <div class="col-8 text-center">
+                            <img src="images/<%=a1%>" alt="<%=a3%>"/>
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="logopeque" class="col-2 col-form-label">Logo Pequeño</label> 
+                        <div class="col-8 text-center ">
+                            <img src="images/<%=a2%>" alt="<%=a3%>"  height="50px" width="150px" />
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="nombre" class="col-2 col-form-label">Nombre</label> 
+
+                        <div class="col-8">
+                            <input id="nombre" name="nombre" type="text" value="<%=a3%>" class="form-control" required="required">
+
+                        </div>
+                        <div class="col-2">
+
+                            <button name="btn-config3" type="btn-config3"  class="btn btn-primary">modificar</button>
+                        </div>
+                    </div> 
+
+                </form>
+            </div>
+            <%
+                } catch (Exception e) {
+                } finally {
+                    cn.desconectar();
+                }
+            %>
+        </div>
+    </div>
+</div>
+</main>
+<!-- Essential javascripts for application to work-->
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+<!-- The javascript plugin to display page loading on top-->
+<script src="js/plugins/pace.min.js"></script>
+<!-- Page specific javascripts-->
+<!-- Google analytics script-->
+<script type="text/javascript">
+    if (document.location.hostname == 'pratikborsadiya.in') {
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-72504830-1', 'auto');
+        ga('send', 'pageview');
+    }
+</script>
 </body>
 </html>

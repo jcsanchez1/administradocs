@@ -168,7 +168,6 @@
                                     <th>FECHA</th>
                                     <th>FILIAL</th>
                                     <th>ESTADO</th>
-                                    <th>ACCION</th>
                                 </tr>
                             </thead>
                             <%
@@ -197,7 +196,18 @@
                                     <td><%=a5%></td>
                                     <td><%=a6%></td>
                                     <td><%=a7%></td>
-                                    <td><%=a8%></td> 
+                                    <td><% if (a8.equals("4")) {%>
+                                        <p class="btn btn-danger">Perdido</p>
+                                        <%} else if (a8.equals("1")) {
+                                        %>
+                                        <p class="btn btn-secondary">No atendido</p>
+                                        <%} else if (a8.equals("3")) {
+                                        %>
+                                        <p class="btn btn-success">Atendido</p>
+                                         <%}  else if (a8.equals("2")) { %>
+                                         <p class="btn btn-success">Atendiendo</p>
+                                         <%}%>
+                                    </td> 
                                 </tr>
                                 <% } %>
                             </tbody>

@@ -159,26 +159,25 @@
                     <div class="table-responsive">
                         <table class="table table-hover table-bordered" id="sampleTable">
                             <thead>
-                                <tr class="text-center">
-                                    <th>ID</th>
-                                    <th>DNI</th>
-                                    <th>AFILIADO</th>
-                                    <th>CORRELATIVO</th>
-                                    <th>SERVICIO</th>
-                                    <th>FECHA</th>
-                                    <th>FILIAL</th>
-                                    <th>ESTADO</th>
-                                    <th>ACCION</th>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Curso</th>
+                                    <th>Certificacion</th>
+                                    <th>Participante</th>
+                                    <th>Instructor</th>
+                                    <th>Fecha Inicio</th>
+                                    <th>Fecha Final</th>
+                                    <th>Ver</th>                                            
                                 </tr>
                             </thead>
                             <%
-                                String id = request.getParameter("idper");
                                 try {
-                                    sql = "SELECT tbl_turnos.idturno, tbl_personas.idafiliacion, CONCAT(tbl_personas.nombre, ' ', tbl_personas.apellido) AS afiliado, tbl_turnos.correlativoturno, tbl_servicios.servicio, tbl_turnos.fechacreacion, tbl_turnos.estado, tbl_turnos.idfilial, tbl_turnos.idpersona, tbl_turnos.idservicio, tbl_filiales.nombrefilial FROM tbl_turnos INNER JOIN tbl_personas ON tbl_turnos.idpersona = tbl_personas.id INNER JOIN tbl_filiales ON tbl_turnos.idfilial = tbl_filiales.idfilial INNER JOIN tbl_servicios ON tbl_turnos.idservicio = tbl_servicios.idservicios WHERE tbl_turnos.idpersona =" + request.getParameter("idper") + " ORDER BY tbl_turnos.fechacreacion ASC, tbl_turnos.correlativoturno ASC;";
+                                    String dni = request.getParameter("dni");
+                                    sql = "SELECT tbl_personas.idafiliacion, tbl_cursos.nombrecurso, tbl_certificaciones.idcertificacion, CONCAT(tbl_personas.nombre, ' ', tbl_personas.apellido) AS participante, CONCAT(tbl_instructores.nombre, ' ', tbl_instructores.apellido) AS instructor, tbl_cursos.fechainicio, tbl_cursos.fechafinal,tbl_cursos.curid FROM tbl_cursos INNER JOIN tbl_certificaciones ON tbl_certificaciones.idcurso = tbl_cursos.curid INNER JOIN tbl_participantescursos ON tbl_participantescursos.cursoid = tbl_cursos.curid AND tbl_certificaciones.curparid = tbl_participantescursos.curparid INNER JOIN tbl_instructores ON tbl_cursos.instid = tbl_instructores.instid INNER JOIN tbl_personas ON tbl_participantescursos.personaid = tbl_personas.id WHERE tbl_personas.id = " + b + ";";
                                     rs = cn.ejecutarConsultaprograma(sql);
-                                    String a1, a2, a3, a4, a5, a6, a7, a8;
+                                    String a1 = "", a2 = "", a3 = "", a4 = "", a5 = "", a6 = "", a7 = "", a8 = "", a9 = "";
                             %>
-                            <tbody>
+                            <tbody> 
                                 <%
                                     while (rs.next()) {
                                         a1 = rs.getString(1);
@@ -187,25 +186,25 @@
                                         a4 = rs.getString(4);
                                         a5 = rs.getString(5);
                                         a6 = rs.getString(6);
-                                        a7 = rs.getString(11);
-                                        a8 = rs.getString(7);
-                                %><tr>
-                                    <td><%=a1%> </td>
-                                    <td><%=a2%></td> 
-                                    <td><%=a3%></td> 
-                                    <td><%=a4%></td> 
+                                        a7 = rs.getString(7);
+                                        a8 = rs.getString(8);
+                                %>
+                                <tr>
+                                    <td><%=a1%></td>
+                                    <td><%=a2%></td>
+                                    <td><%=a3%></td>
+                                    <td><%=a4%></td>
                                     <td><%=a5%></td>
                                     <td><%=a6%></td>
-                                    <td><%=a7%></td>
-                                    <td><%=a8%></td> 
-                                </tr>
-                                <% } %>
-                            </tbody>
+                                    <td><%=a7%></td>                                
+                                    <td><a href="afiliado-dip-ver.jsp?dni=<%=b%>">ver</td> 
+                                </tr>                                            
+                                <%  }  %>
+                            </tbody>                                         
                             <%
                                 } catch (Exception e) {
-                                } finally {
-                                    cn.desconectar();
                                 }
+
                             %>
                         </table>
                     </div>

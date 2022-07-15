@@ -222,8 +222,8 @@
                                     %>
                                 </div>
                             </div> 
-                            <input type="text" name="idper"  value="${persona.id}">
-                            <input type="text" name="filial" value="<%=c%>">
+                            <input type="hidden" name="idper"  value="${persona.id}">
+                            <input type="hidden" name="filial" value="<%=c%>">
                             <div class="form-group row">
                                 <div class="offset-4 col-8">
                                     <button name="btn-crearticket" type="submit" class="btn btn-primary btn-large">CREAR TICKET</button>

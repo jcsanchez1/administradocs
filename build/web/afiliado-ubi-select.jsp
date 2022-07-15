@@ -166,7 +166,7 @@
                                 <p>por filial</p></a>
                         </div>
                         <div class="col-6 text-center">
-                            <a href="#"><img src="images/location.png">
+                            <a href="afiliado-ubi-sel-map.jsp"><img src="images/location.png">
                                 <p>por ubicacion</p></a>
                         </div>                                
                     </div>

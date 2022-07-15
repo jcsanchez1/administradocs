@@ -171,9 +171,9 @@
                                     </thead>
                                     <%
                                         try {
-                                            sql = "SELECT tbl_turnos.correlativoturno as numeroturno, tbl_servicios.servicio, tbl_personas.idafiliacion, CONCAT(tbl_personas.nombre, ' ', tbl_personas.apellido) AS afiliado, tbl_filiales.nombrefilial, tbl_turnos.fechacreacion, tbl_turnos.estado, tbl_turnos.tipo FROM tbl_turnos INNER JOIN tbl_servicios ON tbl_turnos.idservicio = tbl_servicios.idservicios INNER JOIN tbl_personas ON tbl_turnos.idpersona = tbl_personas.id INNER JOIN tbl_filiales ON tbl_turnos.idfilial = tbl_filiales.idfilial WHERE tbl_turnos.idfilial =" + idfil +"  AND tbl_turnos.fechacreacion = CURRENT_DATE() AND tbl_turnos.estado = 1";
+                                            sql = "SELECT tbl_turnos.correlativoturno as numeroturno, tbl_servicios.servicio, tbl_personas.idafiliacion, CONCAT(tbl_personas.nombre, ' ', tbl_personas.apellido) AS afiliado, tbl_filiales.nombrefilial, tbl_turnos.fechacreacion, tbl_turnos.estado, tbl_turnos.tipo FROM tbl_turnos INNER JOIN tbl_servicios ON tbl_turnos.idservicio = tbl_servicios.idservicios INNER JOIN tbl_personas ON tbl_turnos.idpersona = tbl_personas.id INNER JOIN tbl_filiales ON tbl_turnos.idfilial = tbl_filiales.idfilial WHERE tbl_turnos.idfilial =" + idfil + "  AND tbl_turnos.fechacreacion = CURRENT_DATE() AND tbl_turnos.estado = 1";
                                             rs = cn.ejecutarConsultaprograma(sql);
-                                            String a1="", a2="", a3="",a4="", a5="", a6="", a7="";
+                                            String a1 = "", a2 = "", a3 = "", a4 = "", a5 = "", a6 = "", a7 = "";
                                     %>
                                     <tbody>
                                         <%
@@ -192,7 +192,18 @@
                                             <td><%=a4%></td> 
                                             <td><%=a5%></td>
                                             <td><%=a6%></td>
-                                            <td><%=a7%></td>
+                                            <td><% if (a7.equals("4")) {%>
+                                                <p class="btn btn-danger">Perdido</p>
+                                                <%} else if (a7.equals("1")) {
+                                                %>
+                                                <p class="btn btn-secondary">No atendido</p>
+                                                <%} else if (a7.equals("3")) {
+                                                %>
+                                                <p class="btn btn-success">Atendido</p>
+                                                <%} else if (a7.equals("2")) { %>
+                                                <p class="btn btn-success">Atendiendo</p>
+                                                <%}%>
+                                            </td> 
                                         </tr>
                                         <% } %>
                                     </tbody>

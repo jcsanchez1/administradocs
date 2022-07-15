@@ -51,7 +51,7 @@ public class alertasDAO {
     }
 
     public int isertaralerta(TblAlertas ale) throws SQLException {
-        sql = "INSERT INTO serafil2022.tbl_alertas(idpersona, Descripcion, diaalerta, fechacreacion, `estado) VALUES (" + ale.getIdpersona().getId() + " , '" + ale.getDescripcion() + "' , " + ale.getDiaalerta() + " , CURRENT_DATE() , 1)";
+        sql = "INSERT INTO serafil2022.tbl_alertas(idpersona, Descripcion, diaalerta, fechacreacion, estado) VALUES (" + ale.getIdpersona().getId() + " , '" + ale.getDescripcion() + "' , " + ale.getDiaalerta() + " , CURRENT_DATE() , 1)";
         int valor = 0;
         try {
             con = cn.conectarprograma();
@@ -62,6 +62,8 @@ public class alertasDAO {
             cn.commit();
             cn.desconectar();
         }
+
         return valor;
+
     }
 }

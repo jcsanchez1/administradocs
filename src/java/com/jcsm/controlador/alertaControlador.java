@@ -48,24 +48,32 @@ public class alertaControlador extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession misession = request.getSession(true);
 
-            if (request.getParameter("btn-guardar-ale") != null) {
-                try {
+            try {
 
-                    a1 = request.getParameter("idper");
-                    a2 = request.getParameter("descripcion");
-                    a3 = request.getParameter("diaalerta");
-                    int diaalerta = Integer.parseInt(a3);
-                    int idper = Integer.parseInt(a1);
-                    tale.setDescripcion(a2);
-                    tale.setDiaalerta(diaalerta);
-                    tper.setId(idper);
-                    tale.setIdpersona(tper);
-                    respuesta = adao.isertaralerta(tale);
-                    if (respuesta >= 0) {
-                        response.sendRedirect("afiliado-alertas.jsp?idper=" + a1);
-                    }
-                } catch (IOException | NumberFormatException | SQLException ex) {
-                    ex.getMessage();
+                a1 = request.getParameter("idper");
+                a2 = request.getParameter("descripcion");
+                a3 = request.getParameter("diaalerta");
+                int diaalerta = Integer.parseInt(a3);
+                int idper = Integer.parseInt(a1);
+                tale.setDescripcion(a2);
+                tale.setDiaalerta(diaalerta);
+                tper.setId(idper);
+                tale.setIdpersona(tper);
+                respuesta = adao.isertaralerta(tale);
+                if (respuesta >= 0) {
+                    response.sendRedirect("afiliado-alertas.jsp?idper=" + a1);
+                }
+            } catch (IOException | NumberFormatException | SQLException ex) {
+                ex.getMessage();
+            }
+            if (request.getParameter("btn-guardar-ale") != null) {
+                if (respuesta >= 0) {
+                    response.sendRedirect("afiliado-alertas.jsp?idper=" + a1);
+                }
+            }
+            if (request.getParameter("btn-guardar-ale-adm") != null) {
+                if (respuesta >= 0) {
+                    response.sendRedirect("admin-alertas.jsp?idper=" + a1);
                 }
             }
         }

@@ -121,24 +121,24 @@
                 </div>
             </div>
             <ul class="app-menu">
-            <ul class="app-menu">
-                <li><a class="app-menu__item" href="admin-index.jsp"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Turnos</span></a></li>
-                <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Hoy</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-                    <ul class="treeview-menu">
-                        <li><a class="treeview-item" href="pantalla-tur-hoy-act.jsp"><i class="icon fa fa-circle-o"></i> Actuales</a></li>
-                        <li><a class="treeview-item" href="pantalla-tur-hoy-ate.jsp"><i class="icon fa fa-circle-o"></i> Atendidos</a></li>
-                        <li><a class="treeview-item" href="pantalla-tur-hoy-noa.jsp"><i class="icon fa fa-circle-o"></i> Sin Atender</a></li>
-                        <li><a class="treeview-item" href="pantalla-tur-hoy-per.jsp"><i class="icon fa fa-circle-o"></i> Perdidos</a></li>
+                <ul class="app-menu">
+                    <li><a class="app-menu__item" href="admin-index.jsp"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Turnos</span></a></li>
+                    <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Hoy</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a class="treeview-item" href="pantalla-tur-hoy-act.jsp"><i class="icon fa fa-circle-o"></i> Actuales</a></li>
+                            <li><a class="treeview-item" href="pantalla-tur-hoy-ate.jsp"><i class="icon fa fa-circle-o"></i> Atendidos</a></li>
+                            <li><a class="treeview-item" href="pantalla-tur-hoy-noa.jsp"><i class="icon fa fa-circle-o"></i> Sin Atender</a></li>
+                            <li><a class="treeview-item" href="pantalla-tur-hoy-per.jsp"><i class="icon fa fa-circle-o"></i> Perdidos</a></li>
 
-                    </ul>
-                </li>
-                <li class="treeview is-expanded"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Anteriores</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-                    <ul class="treeview-menu">
-                        <li><a class="treeview-item" href="pantalla-tur-ant-ate.jsp"><i class="icon fa fa-circle-o"></i> Atendidos</a></li>
-                        <li><a class="treeview-item active" href="pantalla-tur-ant-per.jsp"><i class="icon fa fa-circle-o"></i> Perdidos</a></li>
-                    </ul>
-                </li>
-            </ul>
+                        </ul>
+                    </li>
+                    <li class="treeview is-expanded"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Anteriores</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a class="treeview-item" href="pantalla-tur-ant-ate.jsp"><i class="icon fa fa-circle-o"></i> Atendidos</a></li>
+                            <li><a class="treeview-item active" href="pantalla-tur-ant-per.jsp"><i class="icon fa fa-circle-o"></i> Perdidos</a></li>
+                        </ul>
+                    </li>
+                </ul>
         </aside>
         <main class="app-content">
             <div class="app-title">
@@ -172,9 +172,9 @@
                                     </thead>
                                     <%
                                         try {
-                                            sql = "SELECT tbl_turnos.correlativoturno as numeroturno, tbl_servicios.servicio, tbl_personas.idafiliacion, CONCAT(tbl_personas.nombre, ' ', tbl_personas.apellido) AS afiliado, tbl_filiales.nombrefilial, tbl_turnos.fechacreacion, tbl_turnos.estado, tbl_turnos.tipo FROM tbl_turnos INNER JOIN tbl_servicios ON tbl_turnos.idservicio = tbl_servicios.idservicios INNER JOIN tbl_personas ON tbl_turnos.idpersona = tbl_personas.id INNER JOIN tbl_filiales ON tbl_turnos.idfilial = tbl_filiales.idfilial WHERE tbl_turnos.idfilial =" + idfil +"  AND tbl_turnos.fechacreacion < CURRENT_DATE() AND tbl_turnos.estado = 4";
+                                            sql = "SELECT tbl_turnos.correlativoturno as numeroturno, tbl_servicios.servicio, tbl_personas.idafiliacion, CONCAT(tbl_personas.nombre, ' ', tbl_personas.apellido) AS afiliado, tbl_filiales.nombrefilial, tbl_turnos.fechacreacion, tbl_turnos.estado, tbl_turnos.tipo FROM tbl_turnos INNER JOIN tbl_servicios ON tbl_turnos.idservicio = tbl_servicios.idservicios INNER JOIN tbl_personas ON tbl_turnos.idpersona = tbl_personas.id INNER JOIN tbl_filiales ON tbl_turnos.idfilial = tbl_filiales.idfilial WHERE tbl_turnos.idfilial =" + idfil + "  AND tbl_turnos.fechacreacion < CURRENT_DATE() AND tbl_turnos.estado = 4";
                                             rs = cn.ejecutarConsultaprograma(sql);
-                                            String a1="", a2="", a3="",a4="", a5="", a6="", a7="";
+                                            String a1 = "", a2 = "", a3 = "", a4 = "", a5 = "", a6 = "", a7 = "";
                                     %>
                                     <tbody>
                                         <%
@@ -193,7 +193,18 @@
                                             <td><%=a4%></td> 
                                             <td><%=a5%></td>
                                             <td><%=a6%></td>
-                                            <td><%=a7%></td>
+                                            <td><% if (a7.equals("4")) {%>
+                                                <p class="btn btn-danger">Perdido</p>
+                                                <%} else if (a7.equals("1")) {
+                                                %>
+                                                <p class="btn btn-secondary">No atendido</p>
+                                                <%} else if (a7.equals("3")) {
+                                                %>
+                                                <p class="btn btn-success">Atendido</p>
+                                                <%} else if (a7.equals("2")) { %>
+                                                <p class="btn btn-success">Atendiendo</p>
+                                                <%}%>
+                                            </td> 
                                         </tr>
                                         <% } %>
                                     </tbody>

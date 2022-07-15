@@ -1,12 +1,20 @@
+<%@include file="/comunes/noatras.jsp" %>
 <%@page import="com.jcsm.configuracion.Dba"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="com.jcsm.entidades.TblConfiguracion"%>
+
 <%
+     HttpSession misession = request.getSession();
+        if (misession.getAttribute("usuario") != null) {%>
+<script>history.back()</script><%
+    return;
+    } 
     int respuesta = 0;
     String sql = "";
     ResultSet rs = null;
     Dba cn = new Dba();
 %>
+<%@include file="/comunes/deshabilitar.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,6 +36,18 @@
                 console.log(cifrado);
             }
         </script>
+        <script type="text/javascript">
+            window.onload = function () {
+                Objeto = document.getElementsByTagName("a");
+                for (a = 0; a < Objeto.length; a++) {
+                    Objeto[a].onclick = function () {
+                        location.replace(this.href);
+                        return false;
+                    }
+
+                }
+            }
+        </script>
     </head>
     <body>
         <section class="material-half-bg">
@@ -40,14 +60,14 @@
                         sql = "SELECT tbl_configuracion.logo, tbl_configuracion.logopeque, tbl_configuracion.nombre FROM tbl_configuracion";
                         rs = cn.ejecutarConsultaprograma(sql);
                         //TblConfiguracion tcon = new TblConfiguracion();
-                        String a1="",a2="",a3="";
+                        String a1 = "", a2 = "", a3 = "";
                         while (rs.next()) {
-                          //  tcon.setLogo(rs.getString(1));
-                            a1=rs.getString(1);
-                         //   tcon.setLogopeque(rs.getString(2));
-                            a2=rs.getString(2);
-                         //   tcon.setNombre(rs.getString(3));
-                            a3=rs.getString(3);
+                            //  tcon.setLogo(rs.getString(1));
+                            a1 = rs.getString(1);
+                            //   tcon.setLogopeque(rs.getString(2));
+                            a2 = rs.getString(2);
+                            //   tcon.setNombre(rs.getString(3));
+                            a3 = rs.getString(3);
                         }
                 %>
                 <img src="images/<%=a1%>" alt="<%=a3%>"/>
