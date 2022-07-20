@@ -1,4 +1,3 @@
-
 <%
     
     HttpSession misession = request.getSession();

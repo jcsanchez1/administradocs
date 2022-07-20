@@ -1,10 +1,12 @@
-<%@include file="/comunes/noatras.jsp" %>
 <%@include file="/comunes/sesion.jsp" %>
+<%@include file="/comunes/noatras.jsp" %>
 <%@include file="/comunes/validar_afil.jsp" %>
+<%@include file="/comunes/deshabilitar.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <%@include file="/comunes/head1.jsp" %>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     </head>
     <body class="app sidebar-mini">
         <!-- Navbar-->
@@ -47,13 +49,9 @@
     <main class="app-content">
         <div class="app-title">
             <div>
-                <h1><i class="fa fa-dashboard"></i> Dashboard</h1>
+                <h1><i class="fa fa-dashboard"></i> COOPERATIVA</h1>
                 <p>Sistema de gestion de afiliados</p>
             </div>
-            <ul class="app-breadcrumb breadcrumb">
-                <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-            </ul>
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -135,22 +133,161 @@
                         } else {
                         %>
                 <p class="text-center">no tiene alertas</p><%
-                        }%>
+                    }%>
 
             </div>
         </div>
         <br>
         <br>
         <div class="row">
-            <div class="col-md-12">
-                <div class="tile">
-                    <div class="tile-body">Create a beautiful dashboard</div>
-                </div>
+            <div class="col-12">
+                <h2>Filiales</h2> <div id='p1Chart'></div>
             </div>
         </div>
-    </main>
-    <%@include file="/comunes/footer1.jsp" %>
-    <script type="text/javascript" src="js/highcharts.js"></script>
-    <script type="text/javascript" src="js/exporting.js"></script>
+        <div class="row">
+            <div class="col-4">
+                <h2>Comayaguela</h2> <div id='piechart'></div>
+            </div>
+            <div class="col-4">
+                <h2>Plaza Miraflores</h2> <div id='piechart2'></div>
+            </div>
+            <div class="col-4">
+                <h2>City Mall</h2> <div id='piechart3'></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h2>Frecuencias de visitas</h2> <div class="text-center" id='p5Chart'></div>
+            </div>
+        </div>
+    </div>     
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['sankey', 'corechart', 'bar', 'calendar']});
+        google.charts.setOnLoadCallback(drawCharts);
+        function drawCharts() {
+            drawChartP1();
+            drawChartP2();
+            drawChartP3();
+            drawChartP4();
+            drawChartP5();
+        }
+        function drawChartP1() {
+        <%            sql = "Select IF(t.estado = 4,'perdido',if(t.estado = 2,'atendido',if(t.estado = 1,'no atendido','atendiendo'))) as Tipo, count(*) as catidad from tbl_turnos as t inner join tbl_personas as p on  t.idpersona = p.id inner join tbl_filiales as f on p.id_filial = f.idfilial where p.id =" + b + "  and  t.idfilial = 1  group by t.estado ";
+            rs = cn.ejecutarConsultaprograma(sql);
+            String z1 = "", z2 = " ";
+            while (rs.next()) {
+                z1 += "['" + rs.getString(1) + "', " + rs.getString(2) + "],";
+            }
+            z2 = "['Estado', 'cantidad']," + z1;
+            z2 = z2.substring(0, z2.length() - 1);
+        %>
+            var data = google.visualization.arrayToDataTable([
+        <%=z2%>
+            ]);
+
+            var options = {
+
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+        }
+        function drawChartP3() {
+        <%            sql = "Select IF(t.estado = 4,'perdido',if(t.estado = 2,'atendido',if(t.estado = 1,'no atendido','atendiendo'))) as Tipo, count(*) as catidad from tbl_turnos as t inner join tbl_personas as p on  t.idpersona = p.id inner join tbl_filiales as f on p.id_filial = f.idfilial where p.id =" + b + "  and  t.idfilial = 2  group by t.estado ";
+            rs = cn.ejecutarConsultaprograma(sql);
+            String y1 = "", y2 = " ";
+            while (rs.next()) {
+                y1 += "['" + rs.getString(1) + "', " + rs.getString(2) + "],";
+            }
+            y2 = "['Estado', 'cantidad']," + y1;
+            y2 = y2.substring(0, y2.length() - 1);
+        %>
+            var data = google.visualization.arrayToDataTable([
+        <%=y2%>
+            ]);
+
+            var options = {
+
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
+
+            chart.draw(data, options);
+        }
+        function drawChartP2() {
+        <%            sql = "Select IF(t.estado = 4,'perdido',if(t.estado = 2,'atendido',if(t.estado = 1,'no atendido','atendiendo'))) as Tipo, count(*) as catidad from tbl_turnos as t inner join tbl_personas as p on  t.idpersona = p.id inner join tbl_filiales as f on p.id_filial = f.idfilial where p.id =" + b + "  and  t.idfilial = 3  group by t.estado ";
+            rs = cn.ejecutarConsultaprograma(sql);
+            String x1 = "", x2 = " ";
+            while (rs.next()) {
+                x1 += "['" + rs.getString(1) + "', " + rs.getString(2) + "],";
+            }
+            x2 = "['Estado', 'cantidad']," + x1;
+            x2 = x2.substring(0, x2.length() - 1);
+        %>
+            var data = google.visualization.arrayToDataTable([
+        <%=x2%>
+            ]);
+
+            var options = {
+
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart3'));
+
+            chart.draw(data, options);
+        }
+        function drawChartP4() {
+        <%            sql = "Select IF(t.idfilial = 1,'comayaguela',if(t.idfilial = 2,'Miraflores',if(t.idfilial = 3,'City Mall','otros'))) as Filial, count(*) as catidad from tbl_turnos as t inner join tbl_personas as p on  t.idpersona = p.id inner join tbl_filiales as f on p.id_filial = f.idfilial where p.id =" + b + " group by t.idfilial ";
+            rs = cn.ejecutarConsultaprograma(sql);
+            String p1 = "", p2 = " ";
+            while (rs.next()) {
+                p1 += "['" + rs.getString(1) + "', " + rs.getString(2) + "],";
+            }
+            p2 = "['Filial', 'cantidad']," + p1;
+            p2 = p2.substring(0, p2.length() - 1);
+        %>
+            var data = google.visualization.arrayToDataTable([
+        <%=p2%>
+            ]);
+
+            var options = {
+
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('p1Chart'));
+
+            chart.draw(data, options);
+        }
+        function drawChartP5() {
+        <%            sql = "Select DATE_FORMAT(t.fechacreacion,'%Y, %m, %d') as fecha, count(*) as catidad from tbl_turnos as t inner join tbl_personas as p on  t.idpersona = p.id inner join tbl_filiales as f on p.id_filial = f.idfilial where p.id =" + b + " group by t.fechacreacion";
+            rs = cn.ejecutarConsultaprograma(sql);
+            String q1 = "", q2 = " ";
+            while (rs.next()) {
+                q1 += "[ new Date(" + rs.getString(1) + "), " + rs.getString(2) + " ],";
+            }
+            q2 = q1;
+            q2 = q2.substring(0, q2.length() - 1);
+        %>
+            var datatable = new google.visualization.DataTable();
+            datatable.addColumn({type: 'date', id: 'Date'});
+            datatable.addColumn({type: 'number', id: 'frecuencia'});
+            datatable.addRows([
+        <%=q2%>
+            ]);
+
+            var options = {
+
+            };
+
+            var chart = new google.visualization.Calendar(document.getElementById('p5Chart'));
+
+            chart.draw(datatable, {height: 450});
+        }
+    </script>
+</main>
+<%@include file="/comunes/footer1.jsp" %>
+<script type="text/javascript" src="js/highcharts.js"></script>
+<script type="text/javascript" src="js/exporting.js"></script>
 </body>
 </html>

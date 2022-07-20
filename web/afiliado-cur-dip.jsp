@@ -167,15 +167,17 @@
                                     <th>Instructor</th>
                                     <th>Fecha Inicio</th>
                                     <th>Fecha Final</th>
+                                    <th>Descargar</th>
                                     <th>Ver</th>                                            
                                 </tr>
                             </thead>
                             <%
-                                try {
-                                    String dni = request.getParameter("dni");
-                                    sql = "SELECT tbl_personas.idafiliacion, tbl_cursos.nombrecurso, tbl_certificaciones.idcertificacion, CONCAT(tbl_personas.nombre, ' ', tbl_personas.apellido) AS participante, CONCAT(tbl_instructores.nombre, ' ', tbl_instructores.apellido) AS instructor, tbl_cursos.fechainicio, tbl_cursos.fechafinal,tbl_cursos.curid FROM tbl_cursos INNER JOIN tbl_certificaciones ON tbl_certificaciones.idcurso = tbl_cursos.curid INNER JOIN tbl_participantescursos ON tbl_participantescursos.cursoid = tbl_cursos.curid AND tbl_certificaciones.curparid = tbl_participantescursos.curparid INNER JOIN tbl_instructores ON tbl_cursos.instid = tbl_instructores.instid INNER JOIN tbl_personas ON tbl_participantescursos.personaid = tbl_personas.id WHERE tbl_personas.id = " + b + ";";
-                                    rs = cn.ejecutarConsultaprograma(sql);
-                                    String a1 = "", a2 = "", a3 = "", a4 = "", a5 = "", a6 = "", a7 = "", a8 = "", a9 = "";
+
+                                    try {
+                                        String dni = request.getParameter("dni");
+                                        sql = "SELECT tbl_personas.idafiliacion, tbl_cursos.nombrecurso, tbl_certificaciones.idcertificacion, CONCAT(tbl_personas.nombre, ' ', tbl_personas.apellido) AS participante, CONCAT(tbl_instructores.nombre, ' ', tbl_instructores.apellido) AS instructor, tbl_cursos.fechainicio, tbl_cursos.fechafinal,tbl_cursos.curid FROM tbl_cursos INNER JOIN tbl_certificaciones ON tbl_certificaciones.idcurso = tbl_cursos.curid INNER JOIN tbl_participantescursos ON tbl_participantescursos.cursoid = tbl_cursos.curid AND tbl_certificaciones.curparid = tbl_participantescursos.curparid INNER JOIN tbl_instructores ON tbl_cursos.instid = tbl_instructores.instid INNER JOIN tbl_personas ON tbl_participantescursos.personaid = tbl_personas.id WHERE tbl_personas.id = " + b + ";";
+                                        rs = cn.ejecutarConsultaprograma(sql);
+                                        String a1 = "", a2 = "", a3 = "", a4 = "", a5 = "", a6 = "", a7 = "", a8 = "", a9 = "";
                             %>
                             <tbody> 
                                 <%
@@ -196,14 +198,15 @@
                                     <td><%=a4%></td>
                                     <td><%=a5%></td>
                                     <td><%=a6%></td>
-                                    <td><%=a7%></td>                                
-                                    <td><a href="afiliado-dip-ver.jsp?dni=<%=b%>">ver</td> 
+                                    <td><%=a7%></td>
+                                    <td><a href="diploma2.jsp?dni=<%=a3%>" target="_blank">Descargar</a></td>                                    
+                                    <td><a href="ver.jsp?dni=<%=a3%>" target="_blank">ver</a></td> 
                                 </tr>                                            
                                 <%  }  %>
                             </tbody>                                         
                             <%
-                                } catch (Exception e) {
-                                }
+                                    } catch (Exception e) {
+                                    }
 
                             %>
                         </table>

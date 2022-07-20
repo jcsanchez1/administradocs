@@ -33,7 +33,9 @@
     Dba cn = new Dba();
 %>
 <!DOCTYPE html>
-
+<%
+    String idfil = request.getParameter("idfil");
+    %>
 <html lang="en">
     <head>
         <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
@@ -223,7 +225,7 @@
                                 </div>
                             </div> 
                             <input type="hidden" name="idper"  value="${persona.id}">
-                            <input type="text" name="filial" value="${idfil}">
+                            <input type="text" name="filial" value="<%=idfil%>">
                             <div class="form-group row">
                                 <div class="offset-4 col-8">
                                     <button name="btn-crearticket" type="submit" class="btn btn-primary btn-large">CREAR TICKET</button>

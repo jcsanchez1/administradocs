@@ -1,1 +1,1 @@
-        <header class="app-header"><a class="app-header__logo" href="admin-index.jsp"><img src="images/logo2.png" height="50px" width="150px" alt=""/></a>
+        <header class="app-header"><a class="app-header__logo" href=""><img src="images/logo2.png" height="50px" width="150px" alt=""/></a>

@@ -102,8 +102,8 @@ public class loginControlador extends HttpServlet {
                 }
 
             } else if (request.getParameter("btn-out") != null) {
-                HttpSession session = request.getSession();
-                session.invalidate();
+                misession.setAttribute("usuario", null);
+                misession.invalidate();
                 response.sendRedirect("/administradocs/index.jsp");
                 out.print("You are successfully logged out!");
 
@@ -120,7 +120,7 @@ public class loginControlador extends HttpServlet {
                     tok = hel.generartoken();
 
                     String remitente = "jc.mejia@unah.hn";
-                    String clave2 = "Un@h2021.Jc$M";
+                    String clave2 = "000";
                     String destino = recuperar;
                     String asunto = "Reseteo de contraseña para " + destino;
                     String cuerpo = "<h4>Recuperacion de contraseña:</h4><p>se ha recibido una solicitud para crear una nueva contraseña</p><p><strong>TOKEN: " + tok + " </strong>token</p><p><strong>PASSWORD: " + pas + " </strong>passw</p><p>en caso de que usted no solicito nueva contraseña, favor comunicarse a nuestro call center</p>";
@@ -132,15 +132,13 @@ public class loginControlador extends HttpServlet {
 //                    props.put("mail.smtp.starttls.enable", "true");
 //                    props.put("mail.smtp.user", remitente);
 //                    props.put("mail.smtp.clave", clave2);
-
 //                    javax.mail.Session s = javax.mail.Session.getDefaultInstance(props);
 //                    MimeMessage mensaje = new MimeMessage(s);
-
                     try {
                         Properties p = new Properties();
                         p.put("mail.smtp.host", "smtp.office365.com");
                         p.setProperty("mail.smtp.starttls.enable", "true");
-                        p.put("mail.smtp.ssl.trust","smtp.office365.com");
+                        p.put("mail.smtp.ssl.trust", "smtp.office365.com");
                         p.setProperty("mail.smtp.port", "587");
                         p.setProperty("mail.smtp.user", remitente);
                         p.setProperty("mail.smtp.auth", "true");
@@ -148,7 +146,7 @@ public class loginControlador extends HttpServlet {
                         MimeMessage mensaje = new MimeMessage(s);
                         mensaje.setFrom(new InternetAddress(remitente));
                         mensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(recuperar));
-                       
+
                         mensaje.setSubject(asunto);
                         mensaje.setText(cuerpo);
                         /*Envio Mensaje de texto*/
@@ -156,12 +154,12 @@ public class loginControlador extends HttpServlet {
                         parteTexto.setContent("<b>" + cuerpo + "</b>", "text/html");
 
                         MimeMultipart todaslasPartes = new MimeMultipart();
-                        todaslasPartes.addBodyPart(parteTexto); 
+                        todaslasPartes.addBodyPart(parteTexto);
                         Transport t = s.getTransport("smtp");
                         t.connect(remitente, clave2);
-                        t.sendMessage(mensaje,mensaje.getAllRecipients());
+                        t.sendMessage(mensaje, mensaje.getAllRecipients());
                         t.close();
-                        
+
 //                        mensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(destino));
 //                        mensaje.setSubject(asunto);
 //

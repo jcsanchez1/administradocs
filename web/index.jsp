@@ -4,11 +4,6 @@
 <%@page import="com.jcsm.entidades.TblConfiguracion"%>
 
 <%
-     HttpSession misession = request.getSession();
-        if (misession.getAttribute("usuario") != null) {%>
-<script>history.back()</script><%
-    return;
-    } 
     int respuesta = 0;
     String sql = "";
     ResultSet rs = null;
@@ -28,13 +23,13 @@
         <title>Sistema de gestion de afiliados - Administracion</title>
         <script src="js/md5.js" type="text/javascript"></script>
         <script>
-            function modificarPASS() {
-                let sinCifrar = document.getElementById("txtclave2").value;
-                let cifrado = hex_md5(sinCifrar);
-                document.getElementById("txtclave").value = cifrado;
-                console.log(sinCifrar);
-                console.log(cifrado);
-            }
+    function modificarPASS() {
+        let sinCifrar = document.getElementById("txtclave2").value;
+        let cifrado = hex_md5(sinCifrar);
+        document.getElementById("txtclave").value = cifrado;
+        console.log(sinCifrar);
+        console.log(cifrado);
+    }
         </script>
         <script type="text/javascript">
             window.onload = function () {
@@ -115,20 +110,7 @@
                 </form>
             </div>
         </section>
+        <%@include file="/comunes/footer1.jsp" %>
 
-        <!-- Essential javascripts for application to work-->
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/main.js"></script>
-        <!-- The javascript plugin to display page loading on top-->
-        <script src="js/plugins/pace.min.js"></script>
-        <script type="text/javascript">
-                            // Login Page Flipbox control
-                            $('.login-content [data-toggle="flip"]').click(function () {
-                                $('.login-box').toggleClass('flipped');
-                                return false;
-                            });
-        </script>
     </body>
 </html>

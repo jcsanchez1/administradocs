@@ -15,6 +15,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -52,6 +54,43 @@ public class alertasDAO {
 
     public int isertaralerta(TblAlertas ale) throws SQLException {
         sql = "INSERT INTO serafil2022.tbl_alertas(idpersona, Descripcion, diaalerta, fechacreacion, estado) VALUES (" + ale.getIdpersona().getId() + " , '" + ale.getDescripcion() + "' , " + ale.getDiaalerta() + " , CURRENT_DATE() , 1)";
+        int valor = 0;
+        try {
+            con = cn.conectarprograma();
+            valor = cn.query.executeUpdate(sql);
+
+        } catch (Exception e) {
+        } finally {
+            cn.commit();
+            cn.desconectar();
+        }
+
+        return valor;
+
+    }
+    public int verificarestadoalerta(int idalerta, int idpersona) throws SQLException
+    {
+                sql = "SELECT estado as cantidad FROM tbl_alertas where idalerta ="+ idalerta +"  and idpersona = " + idpersona;
+        try {
+            rs = cn.ejecutarConsultaprograma(sql);
+        } catch (Exception ex) {
+            Logger.getLogger(alertasDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        while (rs.next()) {
+            respuesta = rs.getInt("cantidad");
+        }
+        return respuesta;
+    }  
+    public int cambiarestadoalerta(int idalerta, int idper) throws SQLException {
+        int validar=0;
+        int estado = 0;
+        validar = verificarestadoalerta(idalerta, idper);
+        if(validar == 1){
+            estado = 0;
+        }else{
+            estado = 1;
+        }
+      sql="UPDATE `serafil2022`.`tbl_alertas` SET `estado` = " + estado + " WHERE `idalerta` = " + idalerta +" and idpersona =  " + idper;
         int valor = 0;
         try {
             con = cn.conectarprograma();
